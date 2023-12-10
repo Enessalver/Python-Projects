@@ -1,0 +1,108 @@
+from art import logo
+import random
+user_cards=[]
+computer_cards=[]
+def Blackjack():
+    def computercards():
+        computer_cards.append(random.choice(cards))
+    def usercardsadd():
+        user_cards.append(random.choice(cards))
+    def compare():
+        if current_scores > 21:
+            print("You Lost")
+            end=False
+        elif current_scores_computer > 21:
+            print("You Win")
+            end=False
+        elif current_scores_computer > current_scores:
+            print("You Lost")
+            end=False
+        elif current_scores > current_scores_computer:
+            print("You Win")
+            end=False
+        elif current_scores == current_scores_computer:
+            print("Draw")
+            end=False
+    def private():
+        print(f"your final hand {user_cards},Current score:{current_scores}\n Ccomputer's final hand:{computer_cards},Computer's score:{current_scores_computer}")
+    startss = True
+    while startss:
+        start = input("Do you want to play a game of Blackjack 'y'(yes) or 'n'(no): ")
+        current_scores = 0
+        current_scores_computer = 0
+        if start == "y":
+            print(logo)
+            cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+            usercardsadd(),usercardsadd()
+            current_scores = user_cards[0] + user_cards[1]
+            if user_cards[0]==11 or user_cards[1]==11:
+                if current_scores>21:
+                    current_scores -= 10
+            computercards(), computercards()
+            current_scores_computer = computer_cards[0] + computer_cards[1]
+            if computer_cards[0] == 11 or computer_cards[1] == 11:
+                if current_scores>21:
+                    current_scores -= 10
+            print(f"  Your Cards:{user_cards},Current score:{current_scores}\nComputer's first card:{computer_cards[0]}")
+            if user_cards == [11, 10] or user_cards == [10, 11]:
+                print("BLACK JACK")
+            elif computer_cards == [11, 10] or computer_cards == [10, 11]:
+                print(f"your final hand {user_cards},Current score:{current_scores}\nCcomputer's final hand:{computer_cards},Computer's score:{current_scores_computer}")
+                print(",Oppononet has Blackjack")
+            another = input("Type 'y' to get another card,type 'n' to pass: ")
+            if another == "y":
+                # 3.sayıyı ekle
+                usercardsadd()
+                current_scores += user_cards[2]
+                if user_cards[2] == 11:
+                    if current_scores > 21:
+                        current_scores -= 10
+
+
+
+                end=True
+                while end:
+                    if current_scores<21:
+                        print(f"Your Cards:{user_cards},Current score{current_scores}\n Computer's first card:{computer_cards[0]}")
+                    another = input("Type 'y' to get another card,type 'n' to pass: ")
+                    if current_scores>=21:
+                        private()
+                        compare()
+                        end=False
+                    elif another == "y":
+                        usercardsadd()
+                        current_scores += user_cards[3]
+                        if user_cards[3] == 11:
+                            if current_scores > 21:
+                                current_scores -= 10
+
+                    else:
+                        x = 2
+                        while current_scores_computer < 16:
+                            computercards()
+                            current_scores_computer += computer_cards[x]
+                            x += 1
+
+                        private()
+                        compare()
+                else:
+                    x = 2
+                    while current_scores_computer < 16:
+                        computercards()
+                        current_scores_computer += computer_cards[x]
+                        x += 1
+                    private()
+                    compare()
+            else:
+                x = 2
+                while current_scores_computer < 16:
+                    computercards()
+                    current_scores_computer += computer_cards[x]
+                    x += 1
+                private()
+                compare()
+        else:
+            print("bye bye")
+            startss = False
+
+Blackjack()
