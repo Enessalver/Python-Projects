@@ -1,0 +1,43 @@
+import random
+from art import logo
+def game():
+    print(logo)
+    print("Welcome to the Number Guessing Game\nI'm thinking of a number between 1 and 100")
+    difficulty=input("Choose a difficulty:Type 'easy' or 'hard': ").lower()
+    answer=random.randint(1,100)
+    correct=f"You Got it! The answer was:{answer}"
+    print(answer)
+    high="Too High\nGuess Again"
+    high2="Too High\nYou've run out of guesses,you lose"
+    low="Too Low\nGuess Again"
+    low2="Too Low\nYou've run out of guesses,you lose"
+    def whiles(healthy):
+        global guess
+        while healthy != 0:
+            print(f"You have {healthy} remaining to guess the number")
+            healthy -= 1
+            guess = int(input("Make a guess: "))
+            print(guessed(healthy))
+            if guessed(healthy) == correct:
+                break
+    def guessed(healthy):
+        if guess==answer:
+            return correct
+        elif int(guess)>answer:
+            if healthy==0:
+                return high2
+            else:
+                return high
+        elif guess<answer:
+            if healthy==0:
+                return low2
+            else:
+                return low
+
+    if difficulty=="easy":
+       whiles(10)
+    elif difficulty=="hard":
+       whiles(5)
+game()
+while input("do you want again:")=="y":
+    game()
